@@ -7,6 +7,18 @@ Created on Thu Aug 24 01:16:57 2023
 #testing git 
 
 import random
+from PIL import Image 
+import glob
+import time
+
+
+
+
+
+
+cardsfolder = r"C:\Users\13054\Desktop\movetogit\PNG-cards-1.3"
+#im = Image.open(r"C:\Users\13054\Desktop\movetogit\PNG-cards-1.3\2_of_hearts.png")  
+#im.show()
 
 
 
@@ -71,27 +83,44 @@ def assign():
 
 def six_deckshoe(deck):
     six_deckshoe = []
-    d_1 = deck 
-    d_2 = deck
-    d_3 = deck
-    d_4 = deck
-    d_5 = deck
-    d_6 = deck
-    six_deckshoe.append([d_1, d_2, d_3, d_4, d_5, d_6])
+    six_deckshoe.extend(deck)
+    six_deckshoe.extend(deck)
+    six_deckshoe.extend(deck)
+    six_deckshoe.extend(deck)
+    six_deckshoe.extend(deck)
+    six_deckshoe.extend(deck)
     return six_deckshoe
 
-
+# this function will be replaced when in action with 
+# a pop to simulate a real shoe however this function could be used to simulate a automate shuffler
 def retrieve():    
- a = six_deckshoe(assign())
- nested_deck = [i.pop() for i in a]
- for i in nested_deck:
-    deck = i
-    return(random.choice(deck))
+ shoe = six_deckshoe(assign())
+ card = random.choice(shoe)
+ if glob.glob(fr"C:\Users\13054\Desktop\movetogit\PNG-cards-1.3\{card.character} of {card.suit}*.png"):
+  img = Image.open(fr"C:\Users\13054\Desktop\movetogit\PNG-cards-1.3\{card.character} of {card.suit}*.png")
+  img.show()
+ return(card)
 
 
 def player_cards():
  card1 = retrieve()
+ if card1.character == "K":
+     card1.character ="king"
+ if card1.character == "Q":
+     card1.character ="queen"    
+ if card1.character == "J":
+     card1.character = "jack"     
+ img = Image.open(fr"C:\Users\13054\Desktop\movetogit\PNG-cards-1.3\{card1.character}_of_{card1.suit}.png")
+ img.show()
  card2 = retrieve()
+ if card2.character == "K":
+     card2.character ="king"
+ if card2.character == "Q":
+     card2.character ="queen"    
+ if card2.character == "J":
+     card2.character = "jack"     
+ img = Image.open(fr"C:\Users\13054\Desktop\movetogit\PNG-cards-1.3\{card2.character}_of_{card2.suit}.png")
+ img.show()
  #print(card1, card2)
  print("you currently have", card1.value + card2.value, "would like to pull a card?\n")
  return(card1.value + card2.value)
@@ -99,24 +128,34 @@ def player_cards():
 
 def dealer_cards():
  card1 = retrieve()
+ if card1.character == "K":
+     card1.character ="king"
+ if card1.character == "Q":
+     card1.character ="queen"    
+ if card1.character == "J":
+     card1.character = "jack"     
+ img = Image.open(fr"C:\Users\13054\Desktop\movetogit\PNG-cards-1.3\{card1.character}_of_{card1.suit}.png")
+ img.show()
  card2 = retrieve() 
  #print(card1, card2)
  #print(card1.value + card2.value)
  print(f"the dealer is showing a {card1}")
  return(card1.value + card2.value, card1)
 
-
+#test = six_deckshoe(assign())
 
 dealer = dealer_cards()[0]
 
+time.sleep(5)
+
 
 if dealer < 21:
- player1 = player_cards()
- if input("yes or no?").lower() == "yes":
-  player1 = player1 + retrieve().value
-  print(player1)
- else:
-  print("you total is", player1)  
+  player1 = player_cards()
+  if input("yes or no?").lower() == "yes":
+   player1 = player1 + retrieve().value
+   print(player1)
+  else:
+   print("you total is", player1)  
 
 
 while dealer < 17:
@@ -126,8 +165,8 @@ while dealer < 17:
 
 if dealer >= 17:
     
- if dealer > 21:
-     print("dealer lost this hand")
- elif dealer > player1:
-     print("dealer won this hand")
+  if dealer > 21:
+      print("dealer lost this hand")
+  elif dealer > player1:
+      print("dealer won this hand")
 print(dealer)    
