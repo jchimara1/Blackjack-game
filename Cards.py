@@ -17,8 +17,6 @@ import time
 
 
 cardsfolder = r"C:\Users\13054\Desktop\movetogit\PNG-cards-1.3"
-#im = Image.open(r"C:\Users\13054\Desktop\movetogit\PNG-cards-1.3\2_of_hearts.png")  
-#im.show()
 
 
 
@@ -44,7 +42,17 @@ class card:
             
 def create_deck():
   suits = ['clubs', "hearts", "spades", "diamonds"]
-  values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+  values = []
+  for number in range(1,13):
+        if number == 11:
+            number = "jack"
+        elif number == 12:
+            number = "queen"    
+        elif number == 13:
+            number = "king"  
+        elif number == 1:
+             number = "ace" 
+        values.append(number)
   deck = []
   for i in range(len(suits)):
     for j in range(len(values)):
@@ -52,10 +60,10 @@ def create_deck():
   # assigning values 
   curr_deck = []
   for card in deck:
-       if card[1] == "A":
+       if card[1] == "ace":
         value = 11
         curr_deck.append([card[0], card[1], value])
-       elif card[1] == "J" or card[1] == "Q" or card[1] ==  "K":
+       elif card[1] == "jack" or card[1] == "queen" or card[1] ==  "king":
         value = 10 
         curr_deck.append([card[0], card[1], value])
        else: 
@@ -103,22 +111,10 @@ def retrieve():
 
 
 def player_cards():
- card1 = retrieve()
- if card1.character == "K":
-     card1.character ="king"
- if card1.character == "Q":
-     card1.character ="queen"    
- if card1.character == "J":
-     card1.character = "jack"     
+ card1 = retrieve()    
  img = Image.open(fr"C:\Users\13054\Desktop\movetogit\PNG-cards-1.3\{card1.character}_of_{card1.suit}.png")
  img.show()
- card2 = retrieve()
- if card2.character == "K":
-     card2.character ="king"
- if card2.character == "Q":
-     card2.character ="queen"    
- if card2.character == "J":
-     card2.character = "jack"     
+ card2 = retrieve() 
  img = Image.open(fr"C:\Users\13054\Desktop\movetogit\PNG-cards-1.3\{card2.character}_of_{card2.suit}.png")
  img.show()
  #print(card1, card2)
@@ -127,46 +123,42 @@ def player_cards():
 
 
 def dealer_cards():
- card1 = retrieve()
- if card1.character == "K":
-     card1.character ="king"
- if card1.character == "Q":
-     card1.character ="queen"    
- if card1.character == "J":
-     card1.character = "jack"     
+ card1 = retrieve()  
  img = Image.open(fr"C:\Users\13054\Desktop\movetogit\PNG-cards-1.3\{card1.character}_of_{card1.suit}.png")
  img.show()
  card2 = retrieve() 
- #print(card1, card2)
- #print(card1.value + card2.value)
  print(f"the dealer is showing a {card1}")
  return(card1.value + card2.value, card1)
 
-#test = six_deckshoe(assign())
-
-dealer = dealer_cards()[0]
-
-time.sleep(5)
 
 
-if dealer < 21:
-  player1 = player_cards()
-  if input("yes or no?").lower() == "yes":
-   player1 = player1 + retrieve().value
-   print(player1)
-  else:
-   print("you total is", player1)  
+ 
+
+# test = six_deckshoe(assign())
+
+# dealer = dealer_cards()[0]
+
+# time.sleep(5)
 
 
-while dealer < 17:
-    dealer = dealer + retrieve().value
-    if dealer >=17:
-        break
+# if dealer < 21:
+#   player1 = player_cards()
+#   if input("yes or no?").lower() == "yes":
+#    player1 = player1 + retrieve().value
+#    print(player1)
+#   else:
+#    print("you total is", player1)  
 
-if dealer >= 17:
+
+# while dealer < 17:
+#     dealer = dealer + retrieve().value
+#     if dealer >=17:
+#         break
+
+# if dealer >= 17:
     
-  if dealer > 21:
-      print("dealer lost this hand")
-  elif dealer > player1:
-      print("dealer won this hand")
-print(dealer)    
+#   if dealer > 21:
+#       print("dealer lost this hand")
+#   elif dealer > player1:
+#       print("dealer won this hand")
+# print(dealer)    
